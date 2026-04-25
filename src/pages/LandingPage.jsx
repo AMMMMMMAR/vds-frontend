@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ChevronRight, Zap, Shield, Star, ArrowDown } from 'lucide-react';
-import heroImg from '../assets/hero-white.png';
+import heroImg from '../assets/hero-dark.png';
 import quickScanImg from '../assets/quick-scan.png';
 import aiAnalysisImg from '../assets/ai-analysis.png';
 import tryOnImg from '../assets/try-on.png';
@@ -121,20 +121,7 @@ export default function LandingPage() {
                 </button>
               </motion.div>
 
-              {/* Trust badges */}
-              <motion.div {...fadeUp(0.45)} className="flex flex-wrap gap-6 mt-12">
-                {[
-                  { val: '33', label: 'Body Landmarks' },
-                  { val: '±1mm', label: 'Accuracy' },
-                  { val: '< 5s', label: 'Processing Time' },
-                  { val: '0', label: 'Data Stored' },
-                ].map(b => (
-                  <div key={b.label}>
-                    <p className="text-2xl font-black text-primary tabular-nums">{b.val}</p>
-                    <p className="text-xs text-on-surface-variant">{b.label}</p>
-                  </div>
-                ))}
-              </motion.div>
+
             </div>
 
             {/* Right: Hero image */}
@@ -145,34 +132,11 @@ export default function LandingPage() {
               className="relative flex items-center justify-center lg:justify-end"
             >
               <div className="relative w-full max-w-md lg:max-w-xl">
-                {/* Glow backdrop */}
-                <div className="absolute inset-0 bg-primary/5 rounded-3xl blur-3xl scale-110" />
-                <div className="absolute inset-0 bg-gradient-to-br from-primary-container/10 to-transparent rounded-3xl" />
-
                 <img
                   src={heroImg}
                   alt="VDS AI Fitting System"
-                  className="relative z-10 w-full object-contain drop-shadow-2xl animate-float max-h-[70vh]"
+                  className="relative z-10 w-full object-contain drop-shadow-2xl animate-float max-h-[70vh] mix-blend-screen"
                 />
-
-                {/* Floating data chips */}
-                <motion.div
-                  animate={{ y: [0, -6, 0] }}
-                  transition={{ duration: 4, repeat: Infinity }}
-                  className="absolute top-8 -left-4 glass rounded-2xl px-4 py-3 hidden sm:block"
-                >
-                  <p className="text-[10px] text-label text-primary/70 mb-0.5">Confidence Score</p>
-                  <p className="text-xl font-black text-primary">97.4%</p>
-                </motion.div>
-
-                <motion.div
-                  animate={{ y: [0, 6, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, delay: 1 }}
-                  className="absolute bottom-16 -right-4 glass rounded-2xl px-4 py-3 hidden sm:block"
-                >
-                  <p className="text-[10px] text-label text-primary/70 mb-0.5">Scan Complete</p>
-                  <p className="text-sm font-semibold text-on-surface">3.2 seconds</p>
-                </motion.div>
               </div>
             </motion.div>
           </div>
@@ -193,25 +157,27 @@ export default function LandingPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {HOW_IT_WORKS.map((item, i) => (
               <motion.div key={item.step} {...fadeUp(i * 0.12)}
-                className="card card-hover p-0 overflow-hidden group"
+                className="card card-hover p-0 overflow-hidden group relative h-[420px]"
               >
-                {/* Image */}
-                <div className={`relative h-52 bg-gradient-to-br ${item.color} overflow-hidden`}>
+                {/* Image Background */}
+                <div className={`absolute inset-0 bg-gradient-to-br ${item.color}`}>
                   <img
                     src={item.img}
                     alt={item.title}
                     className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-surface-container/80 to-transparent" />
-                  <span className="absolute top-4 left-4 text-label text-primary/80 bg-primary/10 border border-primary/20 rounded-full px-3 py-1 text-xs">
-                    Step {item.step}
-                  </span>
+                  {/* Overlay gradient for text readability */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#081425] via-[#081425]/60 to-transparent opacity-90" />
                 </div>
 
-                {/* Content */}
-                <div className="p-6">
+                <span className="absolute top-5 left-5 text-label text-primary/80 bg-primary/10 border border-primary/20 rounded-full px-3 py-1 text-xs z-10 backdrop-blur-md">
+                  Step {item.step}
+                </span>
+
+                {/* Content Overlay */}
+                <div className="absolute bottom-0 inset-x-0 p-6 z-10">
                   <h3 className="text-title text-on-surface mb-2">{item.title}</h3>
-                  <p className="text-body text-sm">{item.description}</p>
+                  <p className="text-on-surface-variant text-sm leading-relaxed">{item.description}</p>
                 </div>
               </motion.div>
             ))}
