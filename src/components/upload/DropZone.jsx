@@ -135,12 +135,6 @@ function UploadSlot({ slot, image, onUpload, onRemove, onDefault }) {
                 </p>
                 <p className="text-xs text-on-surface-variant/60">{slot.description}</p>
               </div>
-              <button
-                onClick={(e) => { e.stopPropagation(); onDefault(slot.id); }}
-                className="text-xs text-primary/60 hover:text-primary underline underline-offset-2 transition-colors mt-1"
-              >
-                Use default image
-              </button>
             </motion.div>
           )}
         </AnimatePresence>
@@ -196,50 +190,85 @@ export default function DropZone({ onProceed }) {
 
   return (
     <div className="flex flex-col gap-8">
-      {/* Upload grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        {SLOTS.map(slot => (
-          <UploadSlot
-            key={slot.id}
-            slot={slot}
-            image={uploadedImages[slot.id]}
-            onUpload={handleUpload}
-            onRemove={handleRemove}
-            onDefault={handleDefault}
-          />
-        ))}
+      {/* SECTION 1 */}
+      <div>
+        <h3 className="text-lg font-semibold text-on-surface mb-4 flex flex-wrap items-center gap-2">
+          1. Upload Body Scans
+          <span className="text-sm font-normal text-on-surface-variant/60">
+            (Front and Side views required for accurate measurements)
+          </span>
+        </h3>
+        
+        {/* Upload grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+          {SLOTS.map(slot => (
+            <UploadSlot
+              key={slot.id}
+              slot={slot}
+              image={uploadedImages[slot.id]}
+              onUpload={handleUpload}
+              onRemove={handleRemove}
+              onDefault={handleDefault}
+            />
+          ))}
+        </div>
       </div>
 
-      {/* Notice */}
-      {!canProceed && (
-        <div className="flex items-start gap-3 bg-surface-container rounded-xl p-4 border border-outline-variant/10">
-          <AlertCircle className="w-4 h-4 text-primary/60 mt-0.5 shrink-0" />
-          <p className="text-xs text-on-surface-variant">
-            <span className="text-on-surface font-medium">Front and Side views are required</span>
-            {' '}for accurate measurements. Back view improves accuracy by ~12%.
-          </p>
+      {/* SECTION 2 */}
+      <div>
+        <h3 className="text-lg font-semibold text-on-surface mb-4">
+          2. Verify Quick Scans
+        </h3>
+        <div className="flex flex-wrap items-center justify-between gap-6">
+          <div className="flex gap-3">
+            {SLOTS.map(slot => (
+              <div key={slot.id} className="w-24 h-20 sm:w-[120px] sm:h-[88px] bg-white rounded-xl overflow-hidden shadow-sm flex items-center justify-center">
+                {uploadedImages[slot.id] ? (
+                  <img src={URL.createObjectURL(uploadedImages[slot.id])} alt={slot.label} className="w-full h-full object-contain" />
+                ) : (
+                  <div className="w-full h-full bg-surface-highest rounded-lg flex flex-col items-center justify-center text-on-surface-variant/30 border border-outline-variant/10 m-1">
+                    <ImageIcon className="w-5 h-5 mb-1 opacity-50" />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          <div className="flex flex-col items-center text-center shrink-0">
+            <button
+               onClick={() => SLOTS.forEach(slot => handleDefault(slot.id))}
+               className="px-6 py-3 bg-surface-highest hover:bg-surface-highest/80 text-on-surface font-semibold rounded-xl text-sm transition-colors border border-outline-variant/20 mb-1.5 tracking-wide"
+            >
+              TEST SCAN ALL
+            </button>
+            <span className="text-[11px] text-on-surface-variant/60">Load scan for batch testing</span>
+          </div>
         </div>
-      )}
+      </div>
 
-      {/* CTA */}
-      <motion.button
-        whileTap={{ scale: 0.98 }}
-        onClick={onProceed}
-        disabled={!canProceed}
-        className={cn(
-          'w-full py-4 rounded-2xl font-semibold text-base flex items-center justify-center gap-3 transition-all duration-300',
-          canProceed
-            ? 'btn-primary shadow-ambient-blue-lg cursor-pointer'
-            : 'bg-surface-highest text-on-surface-variant/40 cursor-not-allowed'
-        )}
-      >
-        <ImageIcon className="w-5 h-5" />
-        Analyze My Measurements
-      </motion.button>
+      <div className="flex flex-col gap-4 mt-2">
+        {/* CTA */}
+        <motion.button
+          whileTap={{ scale: 0.98 }}
+          onClick={onProceed}
+          disabled={!canProceed}
+          className={cn(
+            'w-full py-4 rounded-2xl font-semibold text-base flex flex-col items-center justify-center transition-all duration-300 relative',
+            canProceed
+              ? 'btn-primary shadow-ambient-blue-lg cursor-pointer'
+              : 'bg-surface-highest text-on-surface-variant/40 cursor-not-allowed'
+          )}
+        >
+          <div className="flex items-center gap-3">
+            <ImageIcon className="w-5 h-5" />
+            <span>Analyze My Measurements</span>
+          </div>
+          <span className="text-[11px] font-normal mt-1 opacity-70">Analyze with Verified Scans</span>
+        </motion.button>
 
-      <p className="text-center text-xs text-on-surface-variant/40">
-        Supports JPG, PNG up to 10MB · High resolution preferred · Data never stored
-      </p>
+        <p className="text-center text-xs text-on-surface-variant/40">
+          Supports JPG, PNG up to 10MB · High resolution preferred · Data never stored
+        </p>
+      </div>
     </div>
   );
 }

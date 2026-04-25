@@ -58,21 +58,6 @@ export default function PhotoGuidelines() {
           Your photos are processed locally in-memory. No images are stored or transmitted to external servers.
         </p>
       </div>
-
-      {/* Stats */}
-      <div className="mt-5 grid grid-cols-2 gap-3">
-        {[
-          { value: '33', label: 'Body Landmarks' },
-          { value: '±1mm', label: 'Accuracy' },
-          { value: '< 5s', label: 'Processing' },
-          { value: '0', label: 'Data Stored' },
-        ].map(stat => (
-          <div key={stat.label} className="bg-surface-highest/30 rounded-xl p-3 text-center">
-            <p className="text-lg font-bold text-primary">{stat.value}</p>
-            <p className="text-[10px] text-on-surface-variant mt-0.5">{stat.label}</p>
-          </div>
-        ))}
-      </div>
     </div>
   );
 }
