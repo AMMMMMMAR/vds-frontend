@@ -6,6 +6,7 @@ import heroImg from '../assets/hero-dark.png';
 import quickScanImg from '../assets/quick-scan.png';
 import aiAnalysisImg from '../assets/ai-analysis.png';
 import tryOnImg from '../assets/try-on.png';
+import yoloLandmarksImg from '../assets/yolo-landmarks.png';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 
@@ -45,6 +46,7 @@ const TECH_STEPS = [
     number: '01',
     title: 'Geometric Landmark Extraction',
     desc: 'We pinpoint 33 key body landmarks with sub-millimeter precision to understand your unique posture and frame.',
+    img: yoloLandmarksImg,
   },
   {
     number: '02',
@@ -265,7 +267,13 @@ export default function LandingPage() {
                       </div>
 
                       {/* TODO: Place your image here */}
-                      {/* <img src={myImage} alt={t.title} className="absolute inset-0 w-full h-full object-cover z-20" /> */}
+                      {t.img && (
+                        <img 
+                          src={t.img} 
+                          alt={t.title} 
+                          className="absolute inset-0 w-full h-full object-cover z-20 group-hover:scale-105 transition-transform duration-700" 
+                        />
+                      )}
                     </div>
                   </motion.div>
 
