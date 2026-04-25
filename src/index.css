@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-surface text-on-surface font-inter antialiased;
+    overflow-x: hidden;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-surface-lowest;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-surface-highest rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary-container;
+  }
+
+  ::selection {
+    background: rgba(77, 142, 255, 0.3);
+    color: #d8e3fb;
+  }
+}
+
+@layer components {
+  /* Glass effect */
+  .glass {
+    @apply bg-surface-variant/60 backdrop-blur-xl border border-outline-variant/20;
+  }
+
+  .glass-card {
+    @apply bg-surface-container/80 backdrop-blur-md border border-outline-variant/10 rounded-2xl;
+  }
+
+  /* Primary gradient button */
+  .btn-primary {
+    @apply bg-gradient-to-br from-primary-container to-primary text-on-primary font-semibold rounded-2xl px-8 py-3.5 transition-all duration-300 hover:opacity-90 hover:scale-[1.02] active:scale-[0.98] shadow-ambient-blue;
+  }
+
+  .btn-secondary {
+    @apply bg-surface-highest/40 backdrop-blur-sm border border-outline-variant/30 text-on-surface font-medium rounded-2xl px-8 py-3.5 transition-all duration-300 hover:bg-surface-highest/60 hover:border-primary/30;
+  }
+
+  .btn-ghost {
+    @apply text-primary font-medium rounded-xl px-4 py-2 transition-all duration-200 hover:bg-primary/10;
+  }
+
+  /* Section label */
+  .label-tag {
+    @apply text-xs font-semibold tracking-[0.2em] uppercase text-primary/80 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5;
+  }
+
+  /* Card base */
+  .card {
+    @apply bg-surface-container rounded-2xl border border-outline-variant/10 shadow-glass transition-all duration-300;
+  }
+
+  .card-hover {
+    @apply hover:border-outline-variant/30 hover:shadow-card-hover hover:bg-surface-high;
+  }
+
+  /* Input base */
+  .input-base {
+    @apply bg-surface-low border border-outline-variant/20 rounded-xl px-4 py-3 text-on-surface placeholder:text-on-surface-variant/40 focus:outline-none focus:border-primary/60 focus:ring-2 focus:ring-primary/10 transition-all duration-200 w-full;
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-container via-primary to-primary bg-clip-text text-transparent;
+  }
+
+  /* Ambient orb */
+  .orb {
+    @apply absolute rounded-full pointer-events-none;
+    filter: blur(80px);
+  }
+
+  /* Progress bar */
+  .progress-track {
+    @apply w-full h-1.5 bg-surface-highest rounded-full overflow-hidden;
+  }
+
+  .progress-fill {
+    @apply h-full bg-gradient-to-r from-primary-container to-primary rounded-full transition-all duration-700 ease-out;
+  }
+
+  /* Step indicator */
+  .step-dot {
+    @apply w-2.5 h-2.5 rounded-full transition-all duration-300;
+  }
+
+  /* Section */
+  .section-pad {
+    @apply py-20 md:py-28 lg:py-32;
+  }
+
+  .container-main {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+}
+
+@layer utilities {
+  .text-display {
+    @apply text-5xl sm:text-6xl lg:text-7xl font-black tracking-tight leading-[1.05];
+    letter-spacing: -0.02em;
+  }
+
+  .text-headline {
+    @apply text-3xl sm:text-4xl font-bold tracking-tight;
+    letter-spacing: -0.015em;
+  }
+
+  .text-title {
+    @apply text-xl sm:text-2xl font-semibold;
+  }
+
+  .text-body {
+    @apply text-base text-on-surface-variant leading-relaxed;
+  }
+
+  .text-label {
+    @apply text-xs font-semibold tracking-widest uppercase;
+  }
+
+  /* Ghost border */
+  .ghost-border {
+    border: 1px solid rgba(66, 71, 84, 0.2);
+  }
+
+  /* Scan animation */
+  .scan-overlay {
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(173, 198, 255, 0.06) 50%,
+      transparent 100%
+    );
+    animation: scanLine 2.5s ease-in-out infinite;
+  }
+
+  /* Shimmer loading */
+  .shimmer {
+    background: linear-gradient(
+      90deg,
+      rgba(255,255,255,0) 0%,
+      rgba(173,198,255,0.05) 50%,
+      rgba(255,255,255,0) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2s linear infinite;
+  }
+}
