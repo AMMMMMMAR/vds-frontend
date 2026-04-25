@@ -5,9 +5,8 @@ import { cn } from '../../lib/utils';
 
 const navLinks = [
   { label: 'How It Works', href: '/#how-it-works' },
-  { label: 'Upload', href: '/upload' },
-  { label: 'Results', href: '/results' },
-  { label: 'Try-On', href: '/try-on' },
+  { label: 'Our Vision', href: '/#our-vision' },
+  { label: 'Technical Deep Dive', href: '/#tech-deep-dive' },
 ];
 
 export default function Navbar() {

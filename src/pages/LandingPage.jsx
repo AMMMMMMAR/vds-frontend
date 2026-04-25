@@ -196,7 +196,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── OUR VISION ────────────────────────────────────────── */}
-      <section className="section-pad bg-surface-lowest">
+      <section id="our-vision" className="section-pad bg-surface-lowest">
         <div className="container-main">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             <motion.div {...fadeUp(0)}>
@@ -236,7 +236,7 @@ export default function LandingPage() {
       </section>
 
       {/* ── TECH DEEP DIVE ────────────────────────────────────── */}
-      <section className="section-pad bg-surface-low">
+      <section id="tech-deep-dive" className="section-pad bg-surface-low">
         <div className="container-main">
           <motion.div {...fadeUp(0)} className="mb-20">
             <span className="label-tag mb-4 inline-block">Inside the Engine</span>
