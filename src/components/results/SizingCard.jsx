@@ -5,8 +5,6 @@ export default function SizingCard({ sizing }) {
   const rows = [
     { label: 'Upper Body (Tops)', value: sizing.upperBody },
     { label: 'Lower Body (Bottoms)', value: sizing.lowerBody },
-    { label: 'Shoe Size', value: sizing.shoeSize },
-    { label: 'Fit Preference', value: sizing.fitPreference },
   ];
 
   return (
@@ -27,12 +25,6 @@ export default function SizingCard({ sizing }) {
             <span className="text-sm font-bold text-on-surface">{row.value}</span>
           </div>
         ))}
-      </div>
-      <div className="mt-4 flex items-center gap-2 bg-primary/5 border border-primary/15 rounded-xl p-3">
-        <div className="w-2 h-2 rounded-full bg-primary" />
-        <p className="text-xs text-on-surface-variant">
-          <span className="text-primary font-semibold">98%</span> match confidence for recommended sizes
-        </p>
       </div>
     </div>
   );

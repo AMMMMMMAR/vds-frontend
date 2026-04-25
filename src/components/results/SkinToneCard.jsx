@@ -27,14 +27,7 @@ export default function SkinToneCard({ skinTone }) {
             <p className="text-[10px] text-label text-on-surface-variant/60 mb-0.5">Hex Value</p>
             <p className="text-sm font-mono font-semibold text-primary">{skinTone.hex}</p>
           </div>
-          <div>
-            <p className="text-[10px] text-label text-on-surface-variant/60 mb-0.5">Undertone</p>
-            <p className="text-sm font-semibold text-on-surface">{skinTone.undertone}</p>
-          </div>
         </div>
-      </div>
-      <div className="bg-surface-low rounded-xl p-3 text-xs text-on-surface-variant">
-        Privacy-safe analysis: processed in-memory only. No skin data is stored.
       </div>
     </div>
   );
