@@ -238,23 +238,53 @@ export default function LandingPage() {
       {/* ── TECH DEEP DIVE ────────────────────────────────────── */}
       <section className="section-pad bg-surface-low">
         <div className="container-main">
-          <motion.div {...fadeUp(0)} className="text-center mb-16">
+          <motion.div {...fadeUp(0)} className="mb-20">
             <span className="label-tag mb-4 inline-block">Inside the Engine</span>
             <h2 className="text-headline text-on-surface mt-4">Technical Deep Dive</h2>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-            {TECH_STEPS.map((t, i) => (
-              <motion.div key={t.number} {...fadeUp(i * 0.1)}
-                className="card card-hover p-7 group"
-              >
-                <div className="text-4xl font-black text-primary/15 group-hover:text-primary/30 transition-colors mb-4 font-mono">
-                  {t.number}
+          <div className="flex flex-col gap-24 lg:gap-32">
+            {TECH_STEPS.map((t, i) => {
+              const isEven = i % 2 === 0;
+              return (
+                <div key={t.number} className={`flex flex-col lg:flex-row items-center gap-10 lg:gap-20 ${isEven ? '' : 'lg:flex-row-reverse'}`}>
+                  {/* Image container */}
+                  <motion.div 
+                    {...fadeUp(0.1)} 
+                    className="w-full lg:w-1/2"
+                  >
+                    <div className="w-full aspect-[16/10] rounded-2xl bg-surface-highest/20 border border-outline-variant/10 flex flex-col items-center justify-center relative overflow-hidden shadow-sm group">
+                      {/* Grid bg for empty state */}
+                      <div className="absolute inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none" />
+                      
+                      <div className="flex flex-col items-center gap-3 z-10 opacity-50 group-hover:opacity-100 transition-opacity">
+                        <div className="w-12 h-12 rounded-full bg-surface-highest/50 flex items-center justify-center">
+                          <span className="text-lg text-on-surface-variant/50 font-mono">{t.number}</span>
+                        </div>
+                        <span className="text-on-surface-variant/40 font-mono text-xs">Image Slot: {t.title}</span>
+                      </div>
+
+                      {/* TODO: Place your image here */}
+                      {/* <img src={myImage} alt={t.title} className="absolute inset-0 w-full h-full object-cover z-20" /> */}
+                    </div>
+                  </motion.div>
+
+                  {/* Text container */}
+                  <motion.div 
+                    {...fadeUp(0.2)}
+                    className="w-full lg:w-1/2 flex flex-col justify-center"
+                  >
+                    <div className="w-8 h-[2px] bg-primary/60 mb-6 rounded-full" />
+                    <h3 className="text-2xl sm:text-3xl font-bold text-on-surface mb-4">
+                      {t.title}
+                    </h3>
+                    <p className="text-body text-base leading-relaxed mb-8 max-w-lg">
+                      {t.desc}
+                    </p>
+                  </motion.div>
                 </div>
-                <h4 className="text-title text-on-surface mb-3">{t.title}</h4>
-                <p className="text-body text-sm leading-relaxed">{t.desc}</p>
-              </motion.div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
