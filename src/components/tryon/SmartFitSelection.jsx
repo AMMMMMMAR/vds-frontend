@@ -21,12 +21,7 @@ function GarmentCard({ garment, isSelected, onToggle }) {
     <div className="bg-surface-container rounded-3xl p-4 flex flex-col border border-outline-variant/10">
       {/* Image Container */}
       <div className="bg-white rounded-2xl w-full aspect-square mb-4 relative flex items-center justify-center p-4">
-        {/* Heart Icon (top right) */}
-        {garment.id === 'g1' && (
-          <button className="absolute top-3 right-3 w-8 h-8 bg-surface/50 rounded-full flex items-center justify-center text-on-surface hover:text-primary transition-colors backdrop-blur-sm z-10">
-            <Heart className="w-4 h-4 fill-current" />
-          </button>
-        )}
+
         
         {garment.image ? (
           <img src={garment.image} alt={garment.name} className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0" />
@@ -74,8 +69,7 @@ export default function SmartFitSelection() {
       
       {/* Header */}
       <div className="mb-10">
-        <h2 className="text-3xl font-black text-on-surface tracking-tight mb-2">SmartFit Selection</h2>
-        <p className="text-sm text-on-surface-variant">Curated ensemble for V-Model 042</p>
+        <h2 className="text-3xl font-black text-on-surface tracking-tight mb-2">Vds Fit Selection</h2>
       </div>
 
       <div className="space-y-10 flex-1 overflow-y-auto pr-2 pb-10">
