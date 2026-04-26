@@ -1,21 +1,21 @@
 import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Upload, X, CheckCircle2, ImageIcon, AlertCircle } from 'lucide-react';
+import { Upload, X, CheckCircle2, ImageIcon, AlertCircle, ArrowRight } from 'lucide-react';
 import { usePageFlow } from '../../hooks/usePageFlow';
 import { cn } from '../../lib/utils';
 
 const SLOTS = [
   {
     id: 'front',
-    label: 'FULL BODY FRONT',
+    label: 'FRONT VIEW',
     description: 'Stand straight, arms slightly out, plain background',
     icon: '↑',
     required: true,
   },
   {
     id: 'side',
-    label: 'FULL BODY SIDE',
+    label: 'SIDE VIEW',
     description: 'Stand sideways, arms relaxed, full body visible',
     icon: '→',
     required: true,
@@ -133,7 +133,10 @@ function UploadSlot({ slot, image, onUpload, onRemove, onDefault }) {
                 <p className="text-sm font-medium text-on-surface mb-1">
                   {dragging ? 'Drop it here' : 'Drag & drop or click'}
                 </p>
-                <p className="text-xs text-on-surface-variant/60">{slot.description}</p>
+                <p className="text-xs text-on-surface-variant/60 flex items-center justify-center gap-1.5">
+                  <ArrowRight className="w-3 h-3 text-white/50 shrink-0" />
+                  {slot.description}
+                </p>
               </div>
             </motion.div>
           )}
