@@ -3,12 +3,17 @@ import { Sparkles, Heart } from 'lucide-react';
 import { usePageFlow } from '../../hooks/usePageFlow';
 import { cn } from '../../lib/utils';
 
+import imgGreenTShirt from '../../assets/green-t-shirt.jpeg';
+import imgRedTShirt from '../../assets/red-t-shirt.jpeg';
+import imgBlackJeans from '../../assets/black-jeans.jpeg';
+import imgBlueJeans from '../../assets/bule-jeans.jpeg';
+
 // Hardcoded garments for display layout matching the screenshot
 const GARMENTS = [
-  { id: 'g1', category: 'upper', line: 'AETHER EDITION', name: 'Structured Tech-Blazer', price: '€450' },
-  { id: 'g2', category: 'upper', line: 'ESSENTIAL LINE', name: 'Obsidian Silk Shirt', price: '€210' },
-  { id: 'g3', category: 'lower', line: 'MODULAR KIT', name: 'Tapered Slate Trousers', price: '€320' },
-  { id: 'g4', category: 'lower', line: 'DAILY ARMOR', name: 'Raw Carbon Denim', price: '€185' },
+  { id: 'g1', category: 'upper', line: 'ESSENTIALS', name: 'Green T-Shirt', price: '€45', image: imgGreenTShirt },
+  { id: 'g2', category: 'upper', line: 'ESSENTIALS', name: 'Red T-Shirt', price: '€45', image: imgRedTShirt },
+  { id: 'g3', category: 'lower', line: 'DENIM', name: 'Black Jeans', price: '€120', image: imgBlackJeans },
+  { id: 'g4', category: 'lower', line: 'DENIM', name: 'Blue Jeans', price: '€120', image: imgBlueJeans },
 ];
 
 function GarmentCard({ garment, isSelected, onToggle }) {
@@ -23,10 +28,13 @@ function GarmentCard({ garment, isSelected, onToggle }) {
           </button>
         )}
         
-        {/* Placeholder for garment image */}
-        <div className="text-surface-highest/30 text-xs font-semibold uppercase tracking-widest text-center">
-          Image<br/>Placeholder
-        </div>
+        {garment.image ? (
+          <img src={garment.image} alt={garment.name} className="w-full h-full object-cover rounded-2xl absolute inset-0 z-0" />
+        ) : (
+          <div className="text-surface-highest/30 text-xs font-semibold uppercase tracking-widest text-center relative z-0">
+            Image<br/>Placeholder
+          </div>
+        )}
       </div>
 
       {/* Info */}

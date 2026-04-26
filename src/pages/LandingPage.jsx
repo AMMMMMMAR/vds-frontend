@@ -54,7 +54,7 @@ const TECH_STEPS = [
     number: '02',
     title: 'Chromatic Skin Tone Sampling',
     tag: 'Fitzpatrick Scale · EfficientNetB0',
-    desc: 'YuNet 2023 detects and crops your face. EfficientNetB0 classifies your Fitzpatrick skin type (I–VI) and returns a hex color matched to your tone — all processed in-memory, never stored.',
+    desc: 'Trained EfficientNetB0 classifies your Fitzpatrick skin type (I–VI) and returns a hex color matched to your tone — all processed in-memory, never stored.',
     img: skinToneImg,
   },
   {
