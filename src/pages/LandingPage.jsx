@@ -126,7 +126,6 @@ export default function LandingPage() {
                   onClick={() => howRef.current?.scrollIntoView({ behavior: 'smooth' })}
                   className="btn-secondary flex items-center justify-center gap-2 text-base py-4 px-8"
                 >
-                  <ArrowDown className="w-5 h-5" />
                   ▶ Watch Demo
                 </button>
               </motion.div>

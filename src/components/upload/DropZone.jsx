@@ -8,24 +8,24 @@ import { cn } from '../../lib/utils';
 const SLOTS = [
   {
     id: 'front',
-    label: 'Front View',
-    description: 'Stand facing the camera, arms slightly out',
+    label: 'FULL BODY FRONT',
+    description: 'Stand straight, arms slightly out, plain background',
     icon: '↑',
     required: true,
   },
   {
     id: 'side',
-    label: 'Side View',
-    description: 'Stand sideways, arms relaxed at sides',
+    label: 'FULL BODY SIDE',
+    description: 'Stand sideways, arms relaxed, full body visible',
     icon: '→',
     required: true,
   },
   {
     id: 'back',
-    label: 'Back View',
-    description: 'Stand with back to camera, shoulders relaxed',
-    icon: '↓',
-    required: false,
+    label: 'FACE SELFIE',
+    description: 'Clear face photo, good lighting, no sunglasses',
+    icon: '👤',
+    required: true,
   },
 ];
 
@@ -193,9 +193,9 @@ export default function DropZone({ onProceed }) {
       {/* SECTION 1 */}
       <div>
         <h3 className="text-lg font-semibold text-on-surface mb-4 flex flex-wrap items-center gap-2">
-          1. Upload Body Scans
+          1. Upload Your Photos
           <span className="text-sm font-normal text-on-surface-variant/60">
-            (Front and Side views required for accurate measurements)
+            (Full-body photo required · Face photo required for skin tone)
           </span>
         </h3>
         
@@ -240,7 +240,7 @@ export default function DropZone({ onProceed }) {
             >
               TEST SCAN ALL
             </button>
-            <span className="text-[11px] text-on-surface-variant/60">Load scan for batch testing</span>
+            <span className="text-[11px] text-on-surface-variant/60">Make sure photos are clear before analyzing</span>
           </div>
         </div>
       </div>
@@ -266,7 +266,7 @@ export default function DropZone({ onProceed }) {
         </motion.button>
 
         <p className="text-center text-xs text-on-surface-variant/40">
-          Supports JPG, PNG up to 10MB · High resolution preferred · Data never stored
+          Supports JPG, PNG up to 10MB · Clear lighting preferred · Data never stored
         </p>
       </div>
     </div>

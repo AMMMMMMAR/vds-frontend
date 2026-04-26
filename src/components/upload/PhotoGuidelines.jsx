@@ -9,12 +9,12 @@ const guidelines = [
   },
   {
     title: 'Studio Lighting',
-    description: 'Natural, even light. Avoid harsh shadows.',
+    description: 'Natural even light. Avoid shadows on face and harsh lights for better skin tone reading.',
     icon: '💡',
   },
   {
     title: 'Fitted Clothing',
-    description: 'Essential for accurate metric calculation.',
+    description: 'Wear fitted clothes. Loose clothing affects measurement accuracy.',
     icon: '👕',
   },
   {

@@ -60,11 +60,13 @@ export default function UploadPage() {
           >
             <span className="label-tag mb-3 inline-block">Step 1 of 4</span>
             <h1 className="text-4xl sm:text-5xl font-black text-on-surface tracking-tight mt-3 mb-3">
-              Upload Your <span className="gradient-text">Photos</span>
+              Upload Your <span className="gradient-text">Photo</span>
             </h1>
             <p className="text-body max-w-xl">
-              Upload front, side, and back view photos for the most accurate measurements.
-              All processing happens on your device — nothing is transmitted or stored.
+              Upload two side front and side of your  full-body photo and a face selfie.
+              Our AI extracts your body measurements and
+              detects your skin tone automatically.
+              Nothing is stored or transmitted.
             </p>
           </motion.div>
 
