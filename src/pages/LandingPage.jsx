@@ -7,6 +7,7 @@ import quickScanImg from '../assets/quick-scan.png';
 import aiAnalysisImg from '../assets/ai-analysis.png';
 import tryOnImg from '../assets/try-on.png';
 import yoloLandmarksImg from '../assets/yolo-landmarks.png';
+import skinToneImg from '../assets/skin tone img.png';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 
@@ -20,22 +21,22 @@ const fadeUp = (delay = 0) => ({
 const HOW_IT_WORKS = [
   {
     step: '01',
-    title: 'Quick Scan',
-    description: 'Upload front, side, and back photos. High-precision capture processed entirely on-device in seconds.',
+    title: 'Upload Your Photo',
+    description: 'Take or Upload front, side, and selfie photos. Our AI handles the rest — no special equipment.',
     img: quickScanImg,
     color: 'from-primary-container/20 to-primary/5',
   },
   {
     step: '02',
-    title: 'AI Analysis',
-    description: 'Neural reconstruction maps 33 body landmarks with sub-millimeter accuracy to build your digital twin.',
+    title: 'AI Body & Tone Analysis',
+    description: 'YuNet detects your face. And EfficientNetB0 reads your Fitzpatrick skin tone. Then Measurements are extracted from key body landmarks automatically.',
     img: aiAnalysisImg,
     color: 'from-tertiary/20 to-tertiary/5',
   },
   {
     step: '03',
-    title: 'Virtual Try-On',
-    description: 'Physically accurate garment draping matched to your exact measurements and colour profile.',
+    title: 'Your Style Profile',
+    description: 'Get your clothing size per brand, a curated color palette matched to your skin tone, and outfit ideas built around your exact body shape.',
     img: tryOnImg,
     color: 'from-secondary-container/30 to-secondary-container/5',
   },
@@ -45,22 +46,28 @@ const TECH_STEPS = [
   {
     number: '01',
     title: 'Geometric Landmark Extraction',
+    tag: 'YOLOv8-Pose · Landmark Detection',
     desc: 'We pinpoint 33 key body landmarks with sub-millimeter precision to understand your unique posture and frame.',
     img: yoloLandmarksImg,
   },
   {
     number: '02',
-    title: 'Mathematical 3D Slicing',
-    desc: 'Our algorithm performs cross-sectional slicing of the 3D body volume to calculate circumference, not just height/width.',
+    title: 'Chromatic Skin Tone Sampling',
+    tag: 'Fitzpatrick Scale · EfficientNetB0',
+    desc: 'YuNet 2023 detects and crops your face. EfficientNetB0 classifies your Fitzpatrick skin type (I–VI) and returns a hex color matched to your tone — all processed in-memory, never stored.',
+    img: skinToneImg,
   },
   {
     number: '03',
-    title: 'Chromatic Skin Tone Sampling',
-    desc: 'Privacy-safe sampling: we analyse skin-tone histograms in-memory to generate a matched colour palette.',
+    title: 'Mathematical 3D Slicing',
+    tag: 'Volumetric Slicing Algorithm',
+    desc: 'Our algorithm performs cross-sectional slicing of the 3D body volume to calculate circumference, not just height/width.',
+    img: skinToneImg,
   },
   {
     number: '04',
     title: 'Digital Twin Assembly',
+    tag: 'Neural Reconstruction',
     desc: 'A mathematically accurate Digital Twin, ready for virtual fitting — without ever storing your personal photo.',
   },
 ];
@@ -92,7 +99,7 @@ export default function LandingPage() {
             {/* Left: Text */}
             <div className="flex flex-col justify-center py-16 lg:py-0">
               <motion.div {...fadeUp(0.05)} className="mb-6">
-                <span className="label-tag">The Digital Atelier</span>
+                <span className="label-tag">PRIVACY-FIRST AI STYLING</span>
               </motion.div>
 
               <motion.h1 {...fadeUp(0.15)} className="text-display text-on-surface mb-6">
@@ -102,8 +109,9 @@ export default function LandingPage() {
               </motion.h1>
 
               <motion.p {...fadeUp(0.25)} className="text-body text-lg max-w-lg mb-10">
-                Step into the Digital Atelier. Our advanced AI maps your unique measurements in seconds,
-                delivering a flawless virtual wardrobe experience that celebrates your form.
+                Step into the Digital Atelier. Upload one photo, Our AI detects your body
+                measurements, reads your skin tone, and builds
+                your personal style profile — in seconds.
               </motion.p>
 
               <motion.div {...fadeUp(0.35)} className="flex flex-col sm:flex-row gap-4">
@@ -119,7 +127,7 @@ export default function LandingPage() {
                   className="btn-secondary flex items-center justify-center gap-2 text-base py-4 px-8"
                 >
                   <ArrowDown className="w-5 h-5" />
-                  How It Works
+                  ▶ Watch Demo
                 </button>
               </motion.div>
 
@@ -151,8 +159,8 @@ export default function LandingPage() {
           <motion.div {...fadeUp(0)} className="text-center mb-16">
             <span className="label-tag mb-4 inline-block">The Process</span>
             <h2 className="text-headline text-on-surface mt-4">
-              Seamless Integration.<br />
-              <span className="gradient-text">Flawless Fit.</span>
+              One Photo.<br />
+              <span className="gradient-text">Your Complete Style DNA.</span>
             </h2>
           </motion.div>
 
@@ -204,17 +212,22 @@ export default function LandingPage() {
             <motion.div {...fadeUp(0)}>
               <span className="label-tag mb-4 inline-block">Our Vision</span>
               <h2 className="text-headline text-on-surface mt-4 mb-6">
-                Redefining the Future<br />
-                <span className="gradient-text">of Retail.</span>
+                Where Fashion<br />
+                <span className="gradient-text">Meets Intelligence.</span>
               </h2>
               <p className="text-body text-base leading-loose">
-                VDS was born from a singular obsession: merging the timeless craftsmanship of high-fashion ateliers
-                with the limitless precision of cutting-edge AI. We are building the Digital Atelier — a space where
-                every garment fits perfectly and every user is celebrated.
+                Vds was built around one idea:
+                every person deserves clothes that actually fit.
+                Not approximately — precisely.
               </p>
               <p className="text-body text-base leading-loose mt-4">
-                By digitising human geometry with neural reconstruction, we eliminate the guesswork of online shopping
-                and return to the roots of bespoke tailoring, empowered by technology.
+                By combining computer vision, deep learning
+                skin tone classification, and body measurement
+                extraction from a single photo,  Vds
+                eliminates sizing guesswork entirely. We map
+                your body, read your skin tone, and translate
+                that into a personal style guide — so every
+                piece you buy fits and flatters.
               </p>
             </motion.div>
 
@@ -283,6 +296,11 @@ export default function LandingPage() {
                     className="w-full lg:w-1/2 flex flex-col justify-center"
                   >
                     <div className="w-8 h-[2px] bg-primary/60 mb-6 rounded-full" />
+                    {t.tag && (
+                      <span className="text-primary text-[10px] uppercase tracking-[0.2em] font-bold mb-3 block opacity-80">
+                        {t.tag}
+                      </span>
+                    )}
                     <h3 className="text-2xl sm:text-3xl font-bold text-on-surface mb-4">
                       {t.title}
                     </h3>
