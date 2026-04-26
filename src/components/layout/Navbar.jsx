@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Scan, ChevronRight } from 'lucide-react';
 import { cn } from '../../lib/utils';
+import vdsLogo from '../../assets/vds-logo.png';
 
 const navLinks = [
   { label: 'How It Works', href: '/#how-it-works' },
@@ -49,12 +50,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo */}
           <NavLink to="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-container to-primary flex items-center justify-center shadow-ambient-blue">
-              <Scan className="w-4 h-4 text-on-primary" strokeWidth={2.5} />
-            </div>
-            <span className="text-lg font-bold text-on-surface tracking-tight">
-              VDS<span className="text-primary">.</span>
-            </span>
+            <img src={vdsLogo} alt="VDS Logo" className="h-8 w-auto object-contain rounded-lg" />
           </NavLink>
 
           {/* Desktop nav */}

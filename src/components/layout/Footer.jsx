@@ -1,6 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { Scan, Code, MessageCircle, Shield } from 'lucide-react';
+import vdsLogo from '../../assets/vds-logo.png';
 
 const footerLinks = {
   Product: [
@@ -28,10 +29,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <NavLink to="/" className="flex items-center gap-2.5 mb-4">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary-container to-primary flex items-center justify-center">
-                <Scan className="w-4 h-4 text-on-primary" strokeWidth={2.5} />
-              </div>
-              <span className="text-lg font-bold text-on-surface">VDS<span className="text-primary">.</span></span>
+              <img src={vdsLogo} alt="VDS Logo" className="h-8 w-auto object-contain rounded-lg" />
             </NavLink>
             <p className="text-body text-sm mb-6 max-w-xs">
               The Digital Atelier. AI-powered precision fitting that celebrates every body type.
