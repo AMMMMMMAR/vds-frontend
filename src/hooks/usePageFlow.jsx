@@ -38,6 +38,7 @@ const MOCK_RESULTS = {
 
 export function PageFlowProvider({ children }) {
   const [uploadedImages, setUploadedImages] = useState({ front: null, side: null, back: null });
+  const [userHeight, setUserHeight] = useState('');
   const [analysisResults, setAnalysisResults] = useState(MOCK_RESULTS);
   const [selectedGarments, setSelectedGarments] = useState([]);
   const [processingComplete, setProcessingComplete] = useState(false);
@@ -59,6 +60,7 @@ export function PageFlowProvider({ children }) {
   return (
     <PageFlowContext.Provider value={{
       uploadedImages, updateImage,
+      userHeight, setUserHeight,
       analysisResults, setAnalysisResults,
       selectedGarments, toggleGarment,
       processingComplete, setProcessingComplete,

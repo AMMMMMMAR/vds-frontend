@@ -157,7 +157,7 @@ function UploadSlot({ slot, image, onUpload, onRemove, onDefault }) {
 }
 
 export default function DropZone({ onProceed }) {
-  const { uploadedImages, updateImage } = usePageFlow();
+  const { uploadedImages, updateImage, userHeight, setUserHeight } = usePageFlow();
 
   const handleUpload = (slot, file) => updateImage(slot, file);
   const handleRemove = (slot) => updateImage(slot, null);
@@ -189,7 +189,7 @@ export default function DropZone({ onProceed }) {
 
   const frontUploaded = !!uploadedImages.front;
   const sideUploaded = !!uploadedImages.side;
-  const canProceed = frontUploaded && sideUploaded;
+  const canProceed = frontUploaded && sideUploaded && userHeight.trim() !== '';
 
   return (
     <div className="flex flex-col gap-8">
@@ -238,7 +238,10 @@ export default function DropZone({ onProceed }) {
           </div>
           <div className="flex flex-col items-center text-center shrink-0">
             <button
-               onClick={() => SLOTS.forEach(slot => handleDefault(slot.id))}
+               onClick={() => {
+                 SLOTS.forEach(slot => handleDefault(slot.id));
+                 setUserHeight('175');
+               }}
                className="px-6 py-3 bg-surface-highest hover:bg-surface-highest/80 text-on-surface font-semibold rounded-xl text-sm transition-colors border border-outline-variant/20 mb-1.5 tracking-wide"
             >
               TEST SCAN ALL

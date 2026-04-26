@@ -6,6 +6,7 @@ import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 import DropZone from '../components/upload/DropZone';
 import PhotoGuidelines from '../components/upload/PhotoGuidelines';
+import PersonalCalibration from '../components/upload/PersonalCalibration';
 
 const STEPS = [
   { label: 'Upload', active: true, done: false },
@@ -89,12 +90,14 @@ export default function UploadPage() {
               <DropZone onProceed={() => navigate('/processing')} />
             </motion.div>
 
-            {/* Guidelines — takes 1/3 */}
+            {/* Right Column: Calibration & Guidelines — takes 1/3 */}
             <motion.div
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.18 }}
+              className="flex flex-col gap-8"
             >
+              <PersonalCalibration />
               <PhotoGuidelines />
             </motion.div>
           </div>
