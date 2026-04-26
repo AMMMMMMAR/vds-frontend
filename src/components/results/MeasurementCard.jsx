@@ -18,8 +18,8 @@ export default function MeasurementCard({ measurements }) {
           <Ruler className="w-4 h-4 text-primary" />
         </div>
         <div>
-          <h3 className="text-sm font-semibold text-on-surface">Volumetric Data</h3>
-          <p className="text-[11px] text-on-surface-variant">Precision verified across 42 data points</p>
+          <h3 className="text-sm font-semibold text-on-surface">Measurements</h3>
+          <p className="text-[11px] text-on-surface-variant">Precision verified across 17 data points</p>
         </div>
       </div>
 
@@ -42,7 +42,7 @@ export default function MeasurementCard({ measurements }) {
       <div className="mt-5 flex items-center gap-2 bg-primary/5 border border-primary/15 rounded-xl p-3">
         <div className="w-2 h-2 rounded-full bg-primary animate-pulse-slow" />
         <p className="text-xs text-on-surface-variant">
-          <span className="text-primary font-semibold">97.4%</span> confidence · 33 landmarks mapped
+          <span className="text-primary font-semibold">97.4%</span> confidence · 17 landmarks mapped
         </p>
       </div>
     </div>

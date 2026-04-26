@@ -33,8 +33,8 @@ export default function ColorPalette() {
       <div className="space-y-6">
         {/* Upper Body */}
         <div>
-          <h4 className="text-sm font-semibold text-on-surface mb-0.5">Upper Body Color Recommendation</h4>
-          <p className="text-[11px] text-on-surface-variant mb-3">Suggested for shirts and tops for high contrast.</p>
+          <h4 className="text-sm font-semibold text-on-surface mb-0.5">Recommended colors for your tone</h4>
+          <p className="text-[11px] text-on-surface-variant mb-3">These colors will enhance your natural features and bring out the best in your complexion.</p>
           <div className="flex gap-2">
             {UPPER_COLORS.map(color => (
               <div key={color.hex} className="flex-1 flex flex-col items-center gap-1.5">
@@ -51,8 +51,8 @@ export default function ColorPalette() {
 
         {/* Lower Body */}
         <div>
-          <h4 className="text-sm font-semibold text-on-surface mb-0.5">Lower Body Color Recommendation</h4>
-          <p className="text-[11px] text-on-surface-variant mb-3">Suggested for pants and skirts for natural harmony.</p>
+          <h4 className="text-sm font-semibold text-on-surface mb-0.5">Non recommended</h4>
+          <p className="text-[11px] text-on-surface-variant mb-3">These colors might clash with your undertones and are best used sparingly or as accents.</p>
           <div className="flex gap-2">
             {LOWER_COLORS.map(color => (
               <div key={color.hex} className="flex-1 flex flex-col items-center gap-1.5">

@@ -19,7 +19,7 @@ const MOCK_RESULTS = {
     label: 'Medium',
   },
   sizing: {
-    upperBody: 'L (EU 50)',
+    upperBody: 'L',
     lowerBody: '32 × 32',
     shoeSize: '43 EU',
     fitPreference: 'Standard Fit',

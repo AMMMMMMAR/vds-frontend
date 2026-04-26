@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowLeft, ChevronRight, Download, Share2 } from 'lucide-react';
+import { ArrowLeft, ChevronRight, Download } from 'lucide-react';
 import { usePageFlow } from '../hooks/usePageFlow';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
@@ -42,9 +42,6 @@ export default function ResultsPage() {
             </div>
             <div className="flex items-center gap-2">
               <button className="btn-secondary py-2 px-4 text-sm flex items-center gap-2">
-                <Share2 className="w-4 h-4" /> Share
-              </button>
-              <button className="btn-secondary py-2 px-4 text-sm flex items-center gap-2">
                 <Download className="w-4 h-4" /> Export PDF
               </button>
             </div>
@@ -53,14 +50,10 @@ export default function ResultsPage() {
           {/* Page header */}
           <motion.div {...fadeUp(0.05)} className="mb-10">
             <h1 className="text-4xl sm:text-5xl font-black text-on-surface tracking-tight mb-3">
-              Clinical Analysis <span className="gradient-text">Results</span>
+              Style Analysis <span className="gradient-text">Results</span>
             </h1>
             <div className="flex flex-wrap items-center gap-4">
-              <p className="text-body">Precision metrics verified across 42 data points.</p>
-              <div className="flex items-center gap-2 bg-primary/10 border border-primary/20 rounded-full px-4 py-1.5">
-                <div className="w-2 h-2 rounded-full bg-primary animate-pulse-slow" />
-                <span className="text-xs font-semibold text-primary">Subject ID: {r.subjectId}</span>
-              </div>
+              <p className="text-body">Precision metrics verified across 17 data points.</p>
             </div>
           </motion.div>
 
@@ -89,22 +82,6 @@ export default function ResultsPage() {
                     className="relative z-10 w-full object-contain p-6"
                   />
 
-                  {/* Overlay stats */}
-                  <div className="relative z-10 p-5 border-t border-outline-variant/10 bg-surface-container/60 backdrop-blur-sm">
-                    <p className="text-xs text-label text-primary/70 mb-3">Digital Twin Status</p>
-                    <div className="grid grid-cols-3 gap-3">
-                      {[
-                        { val: r.confidence + '%', label: 'Confidence' },
-                        { val: r.landmarks, label: 'Landmarks' },
-                        { val: r.processingTime, label: 'Scan Time' },
-                      ].map(s => (
-                        <div key={s.label} className="text-center">
-                          <p className="text-base font-black text-primary">{s.val}</p>
-                          <p className="text-[10px] text-on-surface-variant">{s.label}</p>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
                 </div>
 
                 {/* CTA to try-on */}
