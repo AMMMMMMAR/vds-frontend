@@ -2,8 +2,22 @@ import React from 'react';
 import { Shirt } from 'lucide-react';
 
 export default function SizingCard({ sizing }) {
+  if (!sizing) {
+    return (
+      <div className="card p-6">
+        <div className="flex items-center gap-2 mb-4">
+          <div className="w-8 h-8 rounded-xl bg-secondary-container/40 flex items-center justify-center">
+            <Shirt className="w-4 h-4 text-secondary" />
+          </div>
+          <h3 className="text-sm font-semibold text-on-surface">Recommended Sizing</h3>
+        </div>
+        <p className="text-xs text-on-surface-variant/60">Sizing data unavailable.</p>
+      </div>
+    );
+  }
+
   const rows = [
-    { label: 'Upper Body (Tops)', value: sizing.upperBody },
+    { label: 'Upper Body (Tops)',    value: sizing.upperBody },
     { label: 'Lower Body (Bottoms)', value: sizing.lowerBody },
   ];
 
@@ -22,7 +36,7 @@ export default function SizingCard({ sizing }) {
         {rows.map(row => (
           <div key={row.label} className="flex items-center justify-between py-2 border-b border-outline-variant/10 last:border-0">
             <span className="text-sm text-on-surface-variant">{row.label}</span>
-            <span className="text-sm font-bold text-on-surface">{row.value}</span>
+            <span className="text-sm font-bold text-on-surface">{row.value ?? '—'}</span>
           </div>
         ))}
       </div>

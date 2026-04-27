@@ -24,7 +24,7 @@ const SLOTS = [
     required: true,
   },
   {
-    id: 'back',
+    id: 'selfie',
     label: 'FACE SELFIE',
     description: 'Clear face photo, good lighting, no sunglasses',
     icon: '👤',
@@ -35,7 +35,7 @@ const SLOTS = [
 const getStaticImage = (slotId) => {
   if (slotId === 'front') return frontImg;
   if (slotId === 'side') return sideImg;
-  if (slotId === 'back') return backImg;
+  if (slotId === 'selfie') return backImg;
   return null;
 };
 
@@ -175,7 +175,7 @@ export default function DropZone({ onProceed }) {
     let imgPath = '';
     if (slot === 'front') imgPath = frontImg;
     else if (slot === 'side') imgPath = sideImg;
-    else if (slot === 'back') imgPath = backImg;
+    else if (slot === 'selfie') imgPath = backImg;
 
     fetch(imgPath)
       .then(r => r.blob())
