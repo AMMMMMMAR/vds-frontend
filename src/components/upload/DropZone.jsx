@@ -4,6 +4,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Upload, X, CheckCircle2, ImageIcon, AlertCircle, ArrowRight } from 'lucide-react';
 import { usePageFlow } from '../../hooks/usePageFlow';
 import { cn } from '../../lib/utils';
+import frontImg from '../../assets/vds-front.png';
+import sideImg from '../../assets/vds-side.png';
+import backImg from '../../assets/vds-selfie.png';
 
 const SLOTS = [
   {
@@ -28,6 +31,13 @@ const SLOTS = [
     required: true,
   },
 ];
+
+const getStaticImage = (slotId) => {
+  if (slotId === 'front') return frontImg;
+  if (slotId === 'side') return sideImg;
+  if (slotId === 'back') return backImg;
+  return null;
+};
 
 function UploadSlot({ slot, image, onUpload, onRemove, onDefault }) {
   const [dragging, setDragging] = useState(false);
@@ -162,8 +172,12 @@ export default function DropZone({ onProceed }) {
   const handleUpload = (slot, file) => updateImage(slot, file);
   const handleRemove = (slot) => updateImage(slot, null);
   const handleDefault = (slot) => {
-    // Simulate a default placeholder via a fetch to a placeholder
-    fetch('https://placehold.co/400x600/152031/adc6ff?text=Default+View')
+    let imgPath = '';
+    if (slot === 'front') imgPath = frontImg;
+    else if (slot === 'side') imgPath = sideImg;
+    else if (slot === 'back') imgPath = backImg;
+
+    fetch(imgPath)
       .then(r => r.blob())
       .then(blob => {
         const file = new File([blob], `${slot}-default.png`, { type: 'image/png' });
@@ -190,6 +204,18 @@ export default function DropZone({ onProceed }) {
   const frontUploaded = !!uploadedImages.front;
   const sideUploaded = !!uploadedImages.side;
   const canProceed = frontUploaded && sideUploaded && userHeight.trim() !== '';
+
+  const isTestApplied = SLOTS.every(slot => uploadedImages[slot.id]);
+
+  const toggleTestImages = () => {
+    if (isTestApplied) {
+      SLOTS.forEach(slot => updateImage(slot.id, null));
+      setUserHeight('');
+    } else {
+      SLOTS.forEach(slot => handleDefault(slot.id));
+      setUserHeight('175');
+    }
+  };
 
   return (
     <div className="flex flex-col gap-8">
@@ -225,26 +251,26 @@ export default function DropZone({ onProceed }) {
         <div className="flex flex-wrap items-center justify-between gap-6">
           <div className="flex gap-3">
             {SLOTS.map(slot => (
-              <div key={slot.id} className="w-24 h-20 sm:w-[120px] sm:h-[88px] bg-white rounded-xl overflow-hidden shadow-sm flex items-center justify-center">
+              <div key={slot.id} className="w-24 h-20 sm:w-[120px] sm:h-[88px] bg-surface-highest rounded-xl overflow-hidden shadow-sm flex items-center justify-center border border-outline-variant/10 relative">
                 {uploadedImages[slot.id] ? (
-                  <img src={URL.createObjectURL(uploadedImages[slot.id])} alt={slot.label} className="w-full h-full object-contain" />
+                  <img src={URL.createObjectURL(uploadedImages[slot.id])} alt={slot.label} className="w-full h-full object-cover" />
                 ) : (
-                  <div className="w-full h-full bg-surface-highest rounded-lg flex flex-col items-center justify-center text-on-surface-variant/30 border border-outline-variant/10 m-1">
-                    <ImageIcon className="w-5 h-5 mb-1 opacity-50" />
-                  </div>
+                  <>
+                    <img src={getStaticImage(slot.id)} alt={`${slot.label} default`} className="w-full h-full object-cover opacity-50 grayscale-[30%]" />
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/10">
+                      <ImageIcon className="w-5 h-5 text-white/50" />
+                    </div>
+                  </>
                 )}
               </div>
             ))}
           </div>
           <div className="flex flex-col items-center text-center shrink-0">
             <button
-               onClick={() => {
-                 SLOTS.forEach(slot => handleDefault(slot.id));
-                 setUserHeight('175');
-               }}
-               className="px-6 py-3 bg-surface-highest hover:bg-surface-highest/80 text-on-surface font-semibold rounded-xl text-sm transition-colors border border-outline-variant/20 mb-1.5 tracking-wide"
+               onClick={toggleTestImages}
+               className="px-6 py-3 bg-surface-highest hover:bg-surface-highest/80 text-on-surface font-semibold rounded-xl text-sm transition-colors border border-outline-variant/20 mb-1.5 tracking-wide min-w-[160px]"
             >
-              TEST SCAN ALL
+              {isTestApplied ? 'CLEAR SCANS' : 'TEST SCAN ALL'}
             </button>
             <span className="text-[11px] text-on-surface-variant/60">Make sure photos are clear before analyzing</span>
           </div>
