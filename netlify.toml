@@ -1,0 +1,10 @@
+[build]
+  command   = "npm run build"
+  publish   = "dist"
+
+# Redirect all routes to index.html — required for React Router (SPA)
+# Without this, refreshing any page other than / gives a 404 on Netlify
+[[redirects]]
+  from   = "/*"
+  to     = "/index.html"
+  status = 200
