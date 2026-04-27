@@ -9,7 +9,8 @@ import MeasurementCard from '../components/results/MeasurementCard';
 import SkinToneCard from '../components/results/SkinToneCard';
 import SizingCard from '../components/results/SizingCard';
 import ColorPalette from '../components/results/ColorPalette';
-import tryOnImg from '../assets/try-on.png';
+import Avatar3DViewer from '../components/results/Avatar3DViewer';
+import avatarObj from '../assets/avatar.obj';
 
 const fadeUp = (delay = 0) => ({
   initial: { opacity: 0, y: 24 },
@@ -76,11 +77,7 @@ export default function ResultsPage() {
                   {/* Glow */}
                   <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-40 h-32 bg-primary/10 rounded-full blur-3xl" />
 
-                  <img
-                    src={tryOnImg}
-                    alt="Your Digital Twin"
-                    className="relative z-10 w-full object-contain p-6"
-                  />
+                  <Avatar3DViewer modelUrl={avatarObj} />
 
                 </div>
 
