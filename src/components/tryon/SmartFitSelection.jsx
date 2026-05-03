@@ -1,9 +1,10 @@
 import React from 'react';
-import { Sparkles, Loader2 } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { usePageFlow } from '../../hooks/usePageFlow';
-import { generateTryOn, base64ToBlobUrl } from '../../lib/api';
+import { generateTryOn, generateOutfitTryOn, base64ToBlobUrl } from '../../lib/api';
 import { cn } from '../../lib/utils';
 
+// ── Individual garment data ────────────────────────────────────────────────────
 // Garment images are served from /public/garments/ so they can be fetched as Files at runtime.
 const GARMENTS = [
   { id: 'g1', category: 'upper', line: 'ESSENTIALS', name: 'Green T-Shirt', imagePath: '/garments/green-t-shirt.jpeg' },
@@ -12,6 +13,35 @@ const GARMENTS = [
   { id: 'g4', category: 'lower', line: 'DENIM',      name: 'Blue Jeans',    imagePath: '/garments/blue-jeans.jpeg' },
 ];
 
+// ── Full outfit combinations data ─────────────────────────────────────────────
+const OUTFITS = [
+  {
+    id: 'o1',
+    name: 'Green Tee + Black Jeans',
+    upperImagePath: '/garments/green-t-shirt.jpeg',
+    lowerImagePath: '/garments/black-jeans.jpeg',
+  },
+  {
+    id: 'o2',
+    name: 'Green Tee + Blue Jeans',
+    upperImagePath: '/garments/green-t-shirt.jpeg',
+    lowerImagePath: '/garments/blue-jeans.jpeg',
+  },
+  {
+    id: 'o3',
+    name: 'Red Tee + Black Jeans',
+    upperImagePath: '/garments/red-t-shirt.jpeg',
+    lowerImagePath: '/garments/black-jeans.jpeg',
+  },
+  {
+    id: 'o4',
+    name: 'Red Tee + Blue Jeans',
+    upperImagePath: '/garments/red-t-shirt.jpeg',
+    lowerImagePath: '/garments/blue-jeans.jpeg',
+  },
+];
+
+// ── GarmentCard ───────────────────────────────────────────────────────────────
 function GarmentCard({ garment, isSelected, isLoading, onApply }) {
   return (
     <div className="bg-surface-container rounded-3xl p-4 flex flex-col border border-outline-variant/10">
@@ -55,6 +85,57 @@ function GarmentCard({ garment, isSelected, isLoading, onApply }) {
   );
 }
 
+// ── OutfitCard ────────────────────────────────────────────────────────────────
+function OutfitCard({ outfit, isSelected, isLoading, onApply }) {
+  return (
+    <div className="bg-surface-container rounded-3xl p-4 flex flex-col border border-outline-variant/10">
+      {/* Paired images side-by-side */}
+      <div className="flex gap-2 mb-4">
+        <div className="bg-white rounded-2xl flex-1 aspect-square overflow-hidden relative">
+          <img
+            src={outfit.upperImagePath}
+            alt="Upper garment"
+            className="w-full h-full object-cover"
+          />
+        </div>
+        <div className="bg-white rounded-2xl flex-1 aspect-square overflow-hidden relative">
+          <img
+            src={outfit.lowerImagePath}
+            alt="Lower garment"
+            className="w-full h-full object-cover"
+          />
+          {isLoading && (
+            <div className="absolute inset-0 bg-black/40 flex items-center justify-center rounded-2xl">
+              <Loader2 className="w-6 h-6 text-white animate-spin" />
+            </div>
+          )}
+        </div>
+      </div>
+
+      {/* Outfit name */}
+      <div className="mb-4">
+        <p className="text-sm font-semibold text-on-surface leading-tight">{outfit.name}</p>
+      </div>
+
+      {/* Action */}
+      <button
+        onClick={() => onApply(outfit)}
+        disabled={isLoading}
+        className={cn(
+          'w-full mt-auto py-3 rounded-xl font-bold text-[11px] tracking-wider transition-all duration-300',
+          isSelected
+            ? 'bg-primary text-on-primary shadow-ambient-blue'
+            : 'bg-surface-highest text-on-surface-variant hover:text-on-surface hover:bg-surface-highest/80',
+          isLoading && 'opacity-60 cursor-not-allowed'
+        )}
+      >
+        {isLoading ? 'Applying…' : isSelected ? 'APPLIED' : 'APPLY FULL OUTFIT'}
+      </button>
+    </div>
+  );
+}
+
+// ── SmartFitSelection ─────────────────────────────────────────────────────────
 export default function SmartFitSelection() {
   const {
     uploadedImages,
@@ -65,6 +146,7 @@ export default function SmartFitSelection() {
   const [loadingId, setLoadingId] = React.useState(null);
   const [tryOnError, setTryOnError] = React.useState(null);
 
+  // ── Single garment try-on ──────────────────────────────────────────────────
   const handleApply = async (garment) => {
     if (tryOnLoading) return;
     if (!uploadedImages.front) {
@@ -100,6 +182,49 @@ export default function SmartFitSelection() {
     }
   };
 
+  // ── Full outfit try-on ─────────────────────────────────────────────────────
+  const handleApplyOutfit = async (outfit) => {
+    if (tryOnLoading) return;
+    if (!uploadedImages.front) {
+      setTryOnError('No front photo found. Please go back and upload your photos first.');
+      return;
+    }
+
+    setLoadingId(outfit.id);
+    setTryOnLoading(true);
+    setTryOnResultUrl(null);
+    setTryOnError(null);
+
+    try {
+      // Fetch both garments in parallel from public/
+      const [upperResp, lowerResp] = await Promise.all([
+        fetch(outfit.upperImagePath),
+        fetch(outfit.lowerImagePath),
+      ]);
+      const [upperBlob, lowerBlob] = await Promise.all([
+        upperResp.blob(),
+        lowerResp.blob(),
+      ]);
+      const upperFile = new File([upperBlob], `${outfit.id}-upper.jpeg`, { type: 'image/jpeg' });
+      const lowerFile = new File([lowerBlob], `${outfit.id}-lower.jpeg`, { type: 'image/jpeg' });
+
+      const result = await generateOutfitTryOn(uploadedImages.front, upperFile, lowerFile);
+
+      if (result.success && result.images_base64.length > 0) {
+        const url = base64ToBlobUrl(result.images_base64[0], result.mime_type || 'image/jpeg');
+        setTryOnResultUrl(url);
+        setSelectedGarmentId(outfit.id);
+      } else {
+        setTryOnError(result.user_message ?? 'Outfit try-on failed. Please try a different combination.');
+      }
+    } catch {
+      setTryOnError('Could not connect to the try-on service. Please try again.');
+    } finally {
+      setLoadingId(null);
+      setTryOnLoading(false);
+    }
+  };
+
   const upperBody = GARMENTS.filter(g => g.category === 'upper');
   const lowerBody = GARMENTS.filter(g => g.category === 'lower');
 
@@ -123,7 +248,35 @@ export default function SmartFitSelection() {
 
       <div className="space-y-10 flex-1 overflow-y-auto pr-2 pb-10">
 
-        {/* Upper Body */}
+        {/* ── FULL OUTFIT (first) ── */}
+        <section>
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-2 text-on-surface">
+              {/* Combined shirt + pants icon */}
+              <svg className="w-5 h-5 text-primary/80" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M20.38 3.46L16 2a4 4 0 01-8 0L3.62 3.46a2 2 0 00-1.34 2.23l.58 3.47a1 1 0 00.99.84H6v4h12V10h2.15a1 1 0 00.99-.84l.58-3.47a2 2 0 00-1.34-2.23z" />
+                <path d="M9 14H7v6a1 1 0 001 1h2v-5h2v5h2a1 1 0 001-1v-6h-2" />
+              </svg>
+              <h3 className="text-sm font-bold tracking-[0.15em] uppercase">Full Outfit</h3>
+            </div>
+            <span className="text-[10px] font-bold tracking-wider text-on-surface-variant uppercase">
+              0{OUTFITS.length} items
+            </span>
+          </div>
+          <div className="grid grid-cols-2 gap-4">
+            {OUTFITS.map(o => (
+              <OutfitCard
+                key={o.id}
+                outfit={o}
+                isSelected={selectedGarmentId === o.id}
+                isLoading={loadingId === o.id}
+                onApply={handleApplyOutfit}
+              />
+            ))}
+          </div>
+        </section>
+
+        {/* ── UPPER BODY ── */}
         <section>
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2 text-on-surface">
@@ -147,7 +300,7 @@ export default function SmartFitSelection() {
           </div>
         </section>
 
-        {/* Lower Body */}
+        {/* ── LOWER BODY ── */}
         <section>
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2 text-on-surface">

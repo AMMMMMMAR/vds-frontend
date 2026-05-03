@@ -83,6 +83,23 @@ export async function generateTryOn(personFile, garmentFile) {
   return res.json();
 }
 
+// ── Virtual Try-On (Full Outfit) ──────────────────────────────────────────────
+/**
+ * POST /tryon/generate-outfit
+ * Sends person image + upper garment + lower garment.
+ * Returns TryOnResponse with images_base64 array and mime_type.
+ */
+export async function generateOutfitTryOn(personFile, upperFile, lowerFile) {
+  const fd = new FormData();
+  fd.append('person_image', personFile);
+  fd.append('upper_garment_image', upperFile);
+  fd.append('lower_garment_image', lowerFile);
+  fd.append('number_of_images', '1');
+  const res = await fetch(`${BASE}/tryon/generate-outfit`, { method: 'POST', body: fd });
+  if (!res.ok) throw new Error(`Outfit try-on HTTP ${res.status}`);
+  return res.json();
+}
+
 // ── Utility ───────────────────────────────────────────────────────────────────
 /**
  * Converts a base64 string to a browser Object URL.
