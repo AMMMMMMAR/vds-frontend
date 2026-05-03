@@ -22,22 +22,10 @@ const OUTFITS = [
     lowerImagePath: '/garments/black-jeans.jpeg',
   },
   {
-    id: 'o2',
-    name: 'Green Tee + Blue Jeans',
-    upperImagePath: '/garments/green-t-shirt.jpeg',
-    lowerImagePath: '/garments/blue-jeans.jpeg',
-  },
-  {
     id: 'o3',
     name: 'Red Tee + Black Jeans',
     upperImagePath: '/garments/red-t-shirt.jpeg',
     lowerImagePath: '/garments/black-jeans.jpeg',
-  },
-  {
-    id: 'o4',
-    name: 'Red Tee + Blue Jeans',
-    upperImagePath: '/garments/red-t-shirt.jpeg',
-    lowerImagePath: '/garments/blue-jeans.jpeg',
   },
 ];
 
