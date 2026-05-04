@@ -67,6 +67,17 @@ export function PageFlowProvider({ children }) {
 
   const updateImage = useCallback((slot, file) => {
     setUploadedImages(prev => ({ ...prev, [slot]: file }));
+
+    // A new image upload means a new session is starting.
+    // Reset all downstream results so the Try-On page and Results page
+    // don't show stale data from the previous scan.
+    if (file !== null) {
+      setAnalysisResults(null);
+      setAvatarObjUrl(null);
+      setTryOnResultUrl(null);
+      setSelectedGarmentId(null);
+      setProcessingComplete(false);
+    }
   }, []);
 
   return (
