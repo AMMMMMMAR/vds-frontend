@@ -5,9 +5,11 @@ import { ChevronRight, Zap, Shield, Star, ArrowDown } from 'lucide-react';
 import heroImg from '../assets/hero-dark.png';
 import quickScanImg from '../assets/quick-scan.png';
 import aiAnalysisImg from '../assets/ai-analysis.png';
-import tryOnImg from '../assets/try-on.png';
+import tryOnImg from '../assets/try-on img.png';
 import yoloLandmarksImg from '../assets/yolo-landmarks.png';
 import skinToneImg from '../assets/skin tone img.png';
+import avatarImg from '../assets/avatar.png';
+import recommendationImg from '../assets/recomedation img.png';
 import Navbar from '../components/layout/Navbar';
 import Footer from '../components/layout/Footer';
 
@@ -59,16 +61,24 @@ const TECH_STEPS = [
   },
   {
     number: '03',
-    title: 'Mathematical 3D Slicing',
-    tag: 'Volumetric Slicing Algorithm',
-    desc: 'Our algorithm performs cross-sectional slicing of the 3D body volume to calculate circumference, not just height/width.',
-    img: skinToneImg,
+    title: 'Your Body, Digitized',
+    tag: '3D BODY RECONSTRUCTION',
+    desc: 'From your photo, we extract key body landmarks and convert them into a precise 3D avatar that mirrors your real proportions — shoulders, waist, hips, and posture included.',
+    img: avatarImg,
   },
   {
     number: '04',
-    title: 'Digital Twin Assembly',
-    tag: 'Neural Reconstruction',
-    desc: 'A mathematically accurate Digital Twin, ready for virtual fitting — without ever storing your personal photo.',
+    title: 'Style Matched to You',
+    tag: 'SMART STYLING',
+    desc: 'Your body measurements and Fitzpatrick skin tone feed into our recommendation engine — returning your exact clothing size per brand and a curated color palette that genuinely flatters your complexion.',
+    img: recommendationImg,
+  },
+  {
+    number: '05',
+    title: 'Try Before You Buy',
+    tag: 'VIRTUAL FITTING ROOM',
+    desc: 'See any garment draped on your personal digital twin before purchasing. Real fit, real proportions, zero guesswork.',
+    img: tryOnImg,
   },
 ];
 
@@ -105,11 +115,11 @@ export default function LandingPage() {
               <motion.h1 {...fadeUp(0.15)} className="text-display text-on-surface mb-6">
                 Precision{' '}
                 <span className="gradient-text block">Engineered</span>
-                Fitting.
+                Fitting
               </motion.h1>
 
               <motion.p {...fadeUp(0.25)} className="text-body text-lg max-w-lg mb-10">
-                Step into the Digital Atelier. Upload one photo, Our AI detects your body
+                Step into the Digital Atelier. Upload photos, Our AI detects your body
                 measurements, reads your skin tone, and builds
                 your personal style profile — in seconds.
               </motion.p>
@@ -158,8 +168,8 @@ export default function LandingPage() {
           <motion.div {...fadeUp(0)} className="text-center mb-16">
             <span className="label-tag mb-4 inline-block">The Process</span>
             <h2 className="text-headline text-on-surface mt-4">
-              One Photo.<br />
-              <span className="gradient-text">Your Complete Style DNA.</span>
+              Photos to<br />
+              <span className="gradient-text">Your Complete Style DNA</span>
             </h2>
           </motion.div>
 
@@ -212,7 +222,7 @@ export default function LandingPage() {
               <span className="label-tag mb-4 inline-block">Our Vision</span>
               <h2 className="text-headline text-on-surface mt-4 mb-6">
                 Where Fashion<br />
-                <span className="gradient-text">Meets Intelligence.</span>
+                <span className="gradient-text">Meets Intelligence</span>
               </h2>
               <p className="text-body text-base leading-loose">
                 Vds was built around one idea:
@@ -263,14 +273,14 @@ export default function LandingPage() {
               return (
                 <div key={t.number} className={`flex flex-col lg:flex-row items-center gap-10 lg:gap-20 ${isEven ? '' : 'lg:flex-row-reverse'}`}>
                   {/* Image container */}
-                  <motion.div 
-                    {...fadeUp(0.1)} 
+                  <motion.div
+                    {...fadeUp(0.1)}
                     className="w-full lg:w-1/2"
                   >
                     <div className="w-full aspect-[16/10] rounded-2xl bg-surface-highest/20 border border-outline-variant/10 flex flex-col items-center justify-center relative overflow-hidden shadow-sm group">
                       {/* Grid bg for empty state */}
                       <div className="absolute inset-0 bg-grid-pattern opacity-[0.03] pointer-events-none" />
-                      
+
                       <div className="flex flex-col items-center gap-3 z-10 opacity-50 group-hover:opacity-100 transition-opacity">
                         <div className="w-12 h-12 rounded-full bg-surface-highest/50 flex items-center justify-center">
                           <span className="text-lg text-on-surface-variant/50 font-mono">{t.number}</span>
@@ -280,17 +290,17 @@ export default function LandingPage() {
 
                       {/* TODO: Place your image here */}
                       {t.img && (
-                        <img 
-                          src={t.img} 
-                          alt={t.title} 
-                          className="absolute inset-0 w-full h-full object-cover z-20 group-hover:scale-105 transition-transform duration-700" 
+                        <img
+                          src={t.img}
+                          alt={t.title}
+                          className="absolute inset-0 w-full h-full object-cover z-20 group-hover:scale-105 transition-transform duration-700"
                         />
                       )}
                     </div>
                   </motion.div>
 
                   {/* Text container */}
-                  <motion.div 
+                  <motion.div
                     {...fadeUp(0.2)}
                     className="w-full lg:w-1/2 flex flex-col justify-center"
                   >
