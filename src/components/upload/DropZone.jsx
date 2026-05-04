@@ -39,20 +39,45 @@ const getStaticImage = (slotId) => {
   return null;
 };
 
+// 10 MB limit — must match backend MAX_IMAGE_BYTES in schemas.py
+const MAX_FILE_BYTES = 10 * 1024 * 1024;
+
 function UploadSlot({ slot, image, onUpload, onRemove, onDefault }) {
   const [dragging, setDragging] = useState(false);
+  const [sizeError, setSizeError] = useState('');
   const inputRef = useRef(null);
 
   const handleDrop = (e) => {
     e.preventDefault();
     setDragging(false);
     const file = e.dataTransfer.files[0];
-    if (file && file.type.startsWith('image/')) onUpload(slot.id, file);
+    if (!file) return;
+    if (file.size > MAX_FILE_BYTES) {
+      setSizeError('File too large. Maximum size is 10 MB.');
+      return;
+    }
+    if (file.type.startsWith('image/')) {
+      setSizeError('');
+      onUpload(slot.id, file);
+    }
   };
 
   const handleFile = (e) => {
     const file = e.target.files[0];
-    if (file) onUpload(slot.id, file);
+    if (!file) return;
+    if (file.size > MAX_FILE_BYTES) {
+      setSizeError('File too large. Maximum size is 10 MB.');
+      e.target.value = '';
+      return;
+    }
+    setSizeError('');
+    onUpload(slot.id, file);
+  };
+
+  // Clear error when image is removed
+  const handleRemoveWithClear = () => {
+    setSizeError('');
+    onRemove(slot.id);
   };
 
   const preview = image ? URL.createObjectURL(image) : null;
@@ -71,7 +96,7 @@ function UploadSlot({ slot, image, onUpload, onRemove, onDefault }) {
         </div>
         {image && (
           <button
-            onClick={() => onRemove(slot.id)}
+            onClick={handleRemoveWithClear}
             className="text-on-surface-variant/50 hover:text-error transition-colors"
           >
             <X className="w-4 h-4" />
@@ -162,6 +187,13 @@ function UploadSlot({ slot, image, onUpload, onRemove, onDefault }) {
           </>
         )}
       </div>
+      {/* Size error message */}
+      {sizeError && (
+        <p className="text-xs text-red-400 flex items-center gap-1 mt-1">
+          <AlertCircle className="w-3 h-3 shrink-0" />
+          {sizeError}
+        </p>
+      )}
     </div>
   );
 }
