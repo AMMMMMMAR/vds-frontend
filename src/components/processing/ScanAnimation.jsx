@@ -21,7 +21,7 @@ const STAGES = [
   {
     id: 'measuring',
     label: 'Geometric Landmark Extraction',
-    description: 'Detecting 33 body landmarks and analysing skin chromatics.',
+    description: 'Detecting 17 body landmarks and analysing skin chromatics.',
   },
   {
     id: 'recommending',
@@ -258,9 +258,7 @@ export default function ScanAnimation({ onComplete }) {
           transition={{ duration: 5, repeat: Infinity, ease: 'linear' }}
           className="absolute inset-4 rounded-full border border-primary/30"
         />
-        <div className="absolute inset-8 rounded-full bg-gradient-to-br from-primary-container/30 to-primary/10 flex items-center justify-center animate-glow-pulse">
-          <span className="text-3xl">⬡</span>
-        </div>
+        <div className="absolute inset-8 rounded-full bg-gradient-to-br from-primary-container/30 to-primary/10 animate-glow-pulse" />
         <div className="absolute inset-0 rounded-full overflow-hidden">
           <div className="scan-overlay absolute inset-0" />
         </div>
