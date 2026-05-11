@@ -236,7 +236,9 @@ export default function DropZone({ onProceed }) {
   const frontUploaded = !!uploadedImages.front;
   const sideUploaded = !!uploadedImages.side;
   const selfieUploaded = !!uploadedImages.selfie;
-  const canProceed = frontUploaded && sideUploaded && selfieUploaded && userHeight.trim() !== '';
+  const heightNum = parseInt(userHeight, 10);
+  const heightValid = !isNaN(heightNum) && heightNum >= 100 && heightNum <= 250;
+  const canProceed = frontUploaded && sideUploaded && selfieUploaded && heightValid;
 
   const isTestApplied = SLOTS.every(slot => uploadedImages[slot.id]);
 
