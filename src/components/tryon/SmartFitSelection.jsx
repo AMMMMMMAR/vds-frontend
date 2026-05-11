@@ -7,7 +7,7 @@ import { cn } from '../../lib/utils';
 // ── Individual garment data ────────────────────────────────────────────────────
 // Garment images are served from /public/garments/ so they can be fetched as Files at runtime.
 const GARMENTS = [
-  { id: 'g1', category: 'upper', line: 'ESSENTIALS', name: 'Green T-Shirt', imagePath: '/garments/green-t-shirt.jpeg' },
+  { id: 'g1', category: 'upper', line: 'ESSENTIALS', name: 'Teal T-Shirt', imagePath: '/garments/teal-t-shirt.png' },
   { id: 'g2', category: 'upper', line: 'ESSENTIALS', name: 'Red T-Shirt',   imagePath: '/garments/red-t-shirt.jpeg' },
   { id: 'g3', category: 'lower', line: 'DENIM',      name: 'Black Jeans',   imagePath: '/garments/black-jeans.jpeg' },
   { id: 'g4', category: 'lower', line: 'DENIM',      name: 'Blue Jeans',    imagePath: '/garments/blue-jeans.jpeg' },
@@ -17,8 +17,8 @@ const GARMENTS = [
 const OUTFITS = [
   {
     id: 'o1',
-    name: 'Green Tee + Black Jeans',
-    upperImagePath: '/garments/green-t-shirt.jpeg',
+    name: 'Teal Tee + Black Jeans',
+    upperImagePath: '/garments/teal-t-shirt.png',
     lowerImagePath: '/garments/black-jeans.jpeg',
   },
   {
@@ -151,7 +151,9 @@ export default function SmartFitSelection() {
       // Fetch garment from public/ as a Blob then wrap as File
       const garmentResp = await fetch(garment.imagePath);
       const garmentBlob = await garmentResp.blob();
-      const garmentFile = new File([garmentBlob], `${garment.id}.jpeg`, { type: 'image/jpeg' });
+      const ext = garment.imagePath.split('.').pop().toLowerCase();
+      const mimeType = ext === 'png' ? 'image/png' : 'image/jpeg';
+      const garmentFile = new File([garmentBlob], `${garment.id}.${ext}`, { type: mimeType });
 
       const result = await generateTryOn(uploadedImages.front, garmentFile);
 
@@ -193,8 +195,10 @@ export default function SmartFitSelection() {
         upperResp.blob(),
         lowerResp.blob(),
       ]);
-      const upperFile = new File([upperBlob], `${outfit.id}-upper.jpeg`, { type: 'image/jpeg' });
-      const lowerFile = new File([lowerBlob], `${outfit.id}-lower.jpeg`, { type: 'image/jpeg' });
+      const upperExt = outfit.upperImagePath.split('.').pop().toLowerCase();
+      const lowerExt = outfit.lowerImagePath.split('.').pop().toLowerCase();
+      const upperFile = new File([upperBlob], `${outfit.id}-upper.${upperExt}`, { type: upperExt === 'png' ? 'image/png' : 'image/jpeg' });
+      const lowerFile = new File([lowerBlob], `${outfit.id}-lower.${lowerExt}`, { type: lowerExt === 'png' ? 'image/png' : 'image/jpeg' });
 
       const result = await generateOutfitTryOn(uploadedImages.front, upperFile, lowerFile);
 
