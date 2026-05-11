@@ -7,7 +7,7 @@ import { cn } from '../../lib/utils';
 // ── Individual garment data ────────────────────────────────────────────────────
 // Garment images are served from /public/garments/ so they can be fetched as Files at runtime.
 const GARMENTS = [
-  { id: 'g1', category: 'upper', line: 'ESSENTIALS', name: 'Teal T-Shirt', imagePath: '/garments/teal-t-shirt.png' },
+  { id: 'g1', category: 'upper', line: 'ESSENTIALS', name: 'Teal T-Shirt', imagePath: '/garments/teal-t-shirt.jpg' },
   { id: 'g2', category: 'upper', line: 'ESSENTIALS', name: 'Red T-Shirt',   imagePath: '/garments/red-t-shirt.jpeg' },
   { id: 'g3', category: 'lower', line: 'DENIM',      name: 'Black Jeans',   imagePath: '/garments/black-jeans.jpeg' },
   { id: 'g4', category: 'lower', line: 'DENIM',      name: 'Blue Jeans',    imagePath: '/garments/blue-jeans.jpeg' },
@@ -18,7 +18,7 @@ const OUTFITS = [
   {
     id: 'o1',
     name: 'Teal Tee + Black Jeans',
-    upperImagePath: '/garments/teal-t-shirt.png',
+    upperImagePath: '/garments/teal-t-shirt.jpg',
     lowerImagePath: '/garments/black-jeans.jpeg',
   },
   {
