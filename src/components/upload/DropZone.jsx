@@ -248,7 +248,7 @@ export default function DropZone({ onProceed }) {
       setUserHeight('');
     } else {
       SLOTS.forEach(slot => handleDefault(slot.id));
-      setUserHeight('175');
+      setUserHeight('182');
     }
   };
 
