@@ -133,7 +133,7 @@ export default function LandingPage() {
                   <ChevronRight className="w-5 h-5" />
                 </button>
                 <button
-                  onClick={() => howRef.current?.scrollIntoView({ behavior: 'smooth' })}
+                  onClick={() => window.open('https://youtu.be/3I0iontuuz4?si=faC4RuBpzf33U5To', '_blank')}
                   className="btn-secondary flex items-center justify-center gap-2 text-base py-4 px-8"
                 >
                   ▶ Watch Demo
